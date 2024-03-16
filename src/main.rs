@@ -1,9 +1,13 @@
-use sysinfo::System;
+use core::time;
+use std::os::windows::thread;
+
+use sysinfo::{Cpu, System};
 
 fn main() {
     println!("Starting System Information Grab...");
     grab_memory();
-    name_version(true)
+    name_version(true);
+    grab_cpu_data();
 }
 
 fn name_version(long_name: bool) {
@@ -51,4 +55,44 @@ fn grab_memory() {
     println!("  Memory In Use: {} {}", miu.0, miu.1); 
     println!("  Total Swap: {} {}", tsi.0, tsi.1);
     println!("  Swap In Use: {} {}", siu.0, siu.1);
+}
+
+fn simplify_frequency(freq: u64) -> (u64, String) {
+    let mut exponent = 0;
+    let mut simple_freq = freq;
+    let mut amount: &str = "Null";
+
+    while simple_freq > 1000 {
+        simple_freq = simple_freq / 1000;
+        exponent += 1;
+    }
+
+    match exponent{
+        0=>{amount = "Hz"},
+        1=>{amount = "KHz"},
+        2=>{amount = "MHz"},
+        3=>{amount = "GHz"},
+        4=>{amount = "THz"},
+        _=>{amount = "Error: Freq Unknown"}
+    }
+
+    return (simple_freq, amount.to_string());
+}
+
+fn grab_cpu_data() {
+    let mut sys = System::new();
+    sys.refresh_cpu();
+    let sleep_time = time::Duration::from_millis(200);
+    let now = std::time::Instant::now();
+    std::thread::sleep(sleep_time);
+    assert!(now.elapsed() >= sleep_time);
+    sys.refresh_cpu();
+    let cpu_info = sys.global_cpu_info();
+    let freq_info = simplify_frequency(cpu_info.frequency());
+    println!("Cpu Info: ");
+    println!("  CPU Count: {}", sys.cpus().len());
+    println!("  CPU Vendor ID {}", cpu_info.vendor_id());
+    println!("  CPU Brand {}", cpu_info.brand());
+    println!("  CPU Name {}", cpu_info.name());
+    println!("  CPU Frequency {} {}", freq_info.0, freq_info.1);
 }
