@@ -40,7 +40,7 @@ fn simplify_data(data_size: u64) -> (f64, String){
     let mut amount: &str = "Null";
 
     while  number > 1024 {
-        number =  number / 1024;
+        number =  number / 1024; 
         exponent += 1.0;
         exponent_int += 1;
     }
