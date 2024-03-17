@@ -18,7 +18,7 @@ fn main() {
     name_version(true);
     grab_cpu_data();
     get_disks();
-    get_process(1);
+    get_process(10);
     get_networks();
 }
 
