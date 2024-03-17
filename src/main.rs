@@ -1,7 +1,6 @@
 use core::time;
-use std::os::windows::thread;
 
-use sysinfo::{Cpu, System};
+use sysinfo::System;
 
 fn main() {
     println!("Starting System Information Grab...");
