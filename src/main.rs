@@ -25,11 +25,11 @@ fn main() {
 
 fn name_version(long_name: bool) {
     println!("{color_red}System Identity: {color_reset}");
-    println!("  System Name: {:?}", System::name());
-    println!("  Kernel Version {:?}", System::kernel_version());
-    if long_name == true {println!("  OS Version {:?}", System::long_os_version());}
-    else {println!("  OS Version {:?}", System::os_version());}
-    println!("  Host Name {:?}", System::host_name());
+    println!("    System Name: {:?}", System::name());
+    println!("    Kernel Version {:?}", System::kernel_version());
+    if long_name == true {println!("    OS Version {:?}", System::long_os_version());}
+    else {println!("    OS Version {:?}", System::os_version());}
+    println!("    Host Name {:?}", System::host_name());
     println!(" ");
 }
 
@@ -48,7 +48,7 @@ fn simplify_data(data_size: u64) -> (f64, String){
 
     let decimals = ((data_size_float)/(1024.0_f64.powf(exponent - 1.0)))/1024.0;
     
-    match exponent_int{
+    match exponent_int {
         0=>{amount = "B"},
         1=>{amount = "KB"},
         2=>{amount = "MB"},
@@ -73,13 +73,13 @@ fn grab_memory() {
     let fm= simplify_data(sys.total_memory() - sys.used_memory());
     let fs= simplify_data(sys.total_swap() - sys.used_swap());
     println!("{color_blue}System Memory Info: {color_reset}");
-    println!("  Total Memory: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", tmi.0, tmi.1);
-    println!("  Memory Free: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", fm.0, fm.1);
-    println!("  Memory In Use: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", miu.0, miu.1);
-    println!("  Total Swap: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", tsi.0, tsi.1);
-    println!("  Free Swap: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", fs.0, fs.1);
-    println!("  Swap In Use: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", siu.0, siu.1);
-    println!(" ");
+    println!("    Total Memory: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}
+    Memory Free: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}
+    Memory In Use: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}
+    Total Swap: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}
+    Free Swap: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}
+    Swap In Use: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}
+    ", tmi.0, tmi.1, fm.0, fm.1, miu.0, miu.1, tsi.0, tsi.1, fs.0, fs.1, siu.0, siu.1);
 }
 
 fn simplify_frequency(freq: u64) -> (u64, String) {
@@ -92,7 +92,7 @@ fn simplify_frequency(freq: u64) -> (u64, String) {
         exponent += 1;
     }
 
-    match exponent{
+    match exponent {
         0=>{amount = "Hz"},
         1=>{amount = "KHz"},
         2=>{amount = "MHz"},
@@ -115,12 +115,12 @@ fn grab_cpu_data() {
     let cpu_info = sys.global_cpu_info();
     let freq_info = simplify_frequency(cpu_info.frequency());
     println!("{color_blue}Cpu Info: {color_reset}");
-    println!("  CPU Count: {}", sys.cpus().len());
-    println!("  CPU Vendor ID {}", cpu_info.vendor_id());
-    println!("  CPU Brand {}", cpu_info.brand());
-    println!("  CPU Name {}", cpu_info.name());
-    println!("  CPU Frequency {} {}", freq_info.0, freq_info.1);
-    println!(" ");
+    println!("    CPU Count: {}
+    CPU Vendor ID {}
+    CPU Brand {}
+    CPU Name {}
+    CPU Frequency {} {}
+    ", sys.cpus().len(), cpu_info.vendor_id(), cpu_info.brand(), cpu_info.name(), freq_info.0, freq_info.1);
 }
 
 fn get_disks() {
