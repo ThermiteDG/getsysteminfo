@@ -1,4 +1,5 @@
 use core::time;
+use std::os::windows::fs;
 use inline_colorization::*;
 use sysinfo::{Networks, System};
 
@@ -69,12 +70,14 @@ fn grab_memory() {
     let miu = simplify_data(sys.used_memory());
     let tsi = simplify_data(sys.total_swap());
     let siu = simplify_data(sys.used_swap());
+    let fm= simplify_data(sys.total_memory() - sys.used_memory());
+    let fs= simplify_data(sys.total_swap() - sys.used_swap());
     println!("{color_blue}System Memory Info: {color_reset}");
     println!("  Total Memory: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", tmi.0, tmi.1);
-    println!("  Memory Free: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", (tmi.0-miu.0), miu.1);
+    println!("  Memory Free: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", fm.0, fm.1);
     println!("  Memory In Use: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", miu.0, miu.1);
     println!("  Total Swap: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", tsi.0, tsi.1);
-    println!("  Free Swap: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", (tsi.0-siu.0), tsi.1);
+    println!("  Free Swap: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", fs.0, fs.1);
     println!("  Swap In Use: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}", siu.0, siu.1);
     println!(" ");
 }
