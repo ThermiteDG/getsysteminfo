@@ -141,7 +141,7 @@ fn get_disks() {
 
 fn get_networks() {
     let networks = Networks::new_with_refreshed_list();
-    println!("{color_red}Networks{color_reset}:");
+    println!("{color_red}Networks:{color_reset}");
 
     for (interface_name, data) in &networks {
         let simplified_recieved = simplify_data(data.received());
