@@ -133,8 +133,8 @@ fn get_disks() {
         Removable: {:?}
         Mounted @: {:?}
         Type: {:?}
-        Available Space {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}
-        Total Space {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}
+        Available Space: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}
+        Total Space: {color_bright_green}{style_underline}{}{style_reset}{color_reset} {}
         ", disk.name(), disk.file_system(), disk.is_removable(), disk.mount_point(), disk.kind(), a.0, a.1, ta.0, ta.1);
     }
 }
