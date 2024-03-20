@@ -1,5 +1,4 @@
 use core::time;
-use std::os::windows::fs;
 use inline_colorization::*;
 use sysinfo::{Networks, System};
 
@@ -15,12 +14,12 @@ use sysinfo::{Networks, System};
 
 fn main() {
     println!("Starting System Information Grab...");
-    grab_memory();
     name_version(true);
+    get_networks();
+    grab_memory();
     grab_cpu_data();
     get_disks();
     get_process(10);
-    get_networks();
 }
 
 fn name_version(long_name: bool) {
